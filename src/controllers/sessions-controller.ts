@@ -1,12 +1,32 @@
+import { authConfig } from '@/configs/auth';
+import { AppError } from '@/utils/AppError';
 import { Request, Response } from 'express';
+import { sign } from 'jsonwebtoken';
 
 class SessionsController {
   async create(request: Request, response: Response) {
-    return response.json({
-      message: 'Session created',
-      user: process.env.USER_NAME,
-      email: process.env.USER_EMAIL,
+    const mockUser = {
+      id: 1,
+      name: 'John Doe',
+      email: 'john.doe@example.com',
+      password: '123456',
+    };
+
+    if (
+      mockUser.email !== request.body.email ||
+      mockUser.password !== request.body.password
+    ) {
+      throw new AppError('Invalid email or password', 401);
+    }
+
+    const { secret, expiresIn } = authConfig.jwt;
+
+    const token = sign({}, secret, {
+      subject: String(mockUser.id),
+      expiresIn: expiresIn,
     });
+
+    return response.json({ token });
   }
 }
 
