@@ -10,6 +10,7 @@ class SessionsController {
       name: 'John Doe',
       email: 'john.doe@example.com',
       password: '123456',
+      role: 'customer',
     };
 
     if (
@@ -21,7 +22,7 @@ class SessionsController {
 
     const { secret, expiresIn } = authConfig.jwt;
 
-    const token = sign({}, secret, {
+    const token = sign({ role: mockUser.role }, secret, {
       subject: String(mockUser.id),
       expiresIn: expiresIn,
     });
