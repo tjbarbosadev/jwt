@@ -28,3 +28,19 @@ O script `dev` ja esta configurado para carregar automaticamente o arquivo `.env
 ```json
 "dev": "tsx watch --env-file=.env src/server.ts"
 ```
+
+## Progresso do estudo de JWT
+
+Depois da configuracao inicial, foram feitos os seguintes passos:
+
+- Adicao do pacote `jsonwebtoken` e tipagens relacionadas.
+- Geracao de token JWT na rota de criacao de sessao (`create`).
+- Leitura de variaveis de ambiente com `.env` e `.env-example`.
+- Ajuste do script de desenvolvimento para carregar variaveis do `.env`.
+- Extracao do token da requisicao (header `Authorization`).
+- Estrutura preparada para middleware de autenticacao e autorizacao.
+
+### Commits sugeridos para esse progresso
+
+- `feat: add jsonwebtoken package and return token from create route`
+- `feat: extract token from request`
