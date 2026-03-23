@@ -8,7 +8,7 @@ class ProductsController {
   async create(request: Request, response: Response) {
     return response.json({
       message: 'Product created',
-      user: { id: request.user?.id },
+      user: { id: request.user?.id, role: request.user?.role },
     });
   }
 }

@@ -3,6 +3,11 @@ import { AppError } from '@/utils/AppError';
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 
+interface TokenPayload {
+  sub: string;
+  role: string;
+}
+
 function ensureAuthenticated(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization;
 
@@ -12,11 +17,12 @@ function ensureAuthenticated(req: Request, res: Response, next: NextFunction) {
 
   const [, token] = authHeader.split(' ');
 
-  const { sub: user_id } = verify(token, authConfig.jwt.secret) as {
-    sub: string;
-  };
+  const { sub: user_id, role } = verify(
+    token,
+    authConfig.jwt.secret,
+  ) as TokenPayload;
 
-  req.user = { id: user_id };
+  req.user = { id: user_id, role };
 
   next();
 }
