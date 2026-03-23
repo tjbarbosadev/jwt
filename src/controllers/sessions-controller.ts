@@ -6,7 +6,7 @@ import { sign } from 'jsonwebtoken';
 class SessionsController {
   async create(request: Request, response: Response) {
     const mockUser = {
-      id: 1,
+      id: '1',
       name: 'John Doe',
       email: 'john.doe@example.com',
       password: '123456',
